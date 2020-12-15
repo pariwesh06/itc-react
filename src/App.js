@@ -1,22 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import Textfield from './components/Textfield';
 
-function App() {
-  return (
+function App() {  //Component
+  return (   //JSX expression
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+        <Textfield></Textfield>
+        <Textfield></Textfield>
+
+        React is awesome..123
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+     
       </header>
     </div>
   );
