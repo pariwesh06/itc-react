@@ -1,9 +1,10 @@
 
 import "./Textfield.css";
-function Textfield() {
+function Textfield(props) {
+    console.log(props);
     return (
         <div>
-            <input className='input'></input>
+            <input value={props.initialText}className='input' style={{backgroundColor: props.bgColor}}></input>
         </div>
     );
 }
