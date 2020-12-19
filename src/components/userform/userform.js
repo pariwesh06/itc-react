@@ -7,7 +7,8 @@ export class Userform extends Component {//ECMA6 class
         super();
         this.state = {
             fname: 'Ramesh1',
-            carBrand: 'audi'
+            carBrand: 'audi',
+            isChecked:[]
         };
     }
     handleChange = (event) => {
@@ -40,9 +41,10 @@ export class Userform extends Component {//ECMA6 class
                 <label><input type='radio' value='female' name='gender' checked={this.state.gender == 'female'}
                     onChange={this.handleChange} /> Female</label>
 
-                <label><input type='checkbox' name='domestic' checked={this.state.isChecked}
+                <label><input type='checkbox' name='domestic' checked={this.state.isChecked[0]}
                     onChange={this.handleChange} /> domestic</label>
-
+                <label><input type='checkbox' name='international' checked={this.state.isChecked[1]}
+                    onChange={this.handleChange} /> International</label>
                 <button type='button' onClick={this.save}>Save</button>
             </form>
         )
