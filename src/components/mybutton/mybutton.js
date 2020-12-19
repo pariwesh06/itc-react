@@ -1,13 +1,23 @@
-const MyButton = (props) =>{ //stateless
+import List from "../list/list";
+
+const MyButton = (props) => { //stateless
     return (
-        <button onClick={(event)=>{
+        <button onClick={(event) => {
             console.log('clicked');
             //Ajax call
             fetch('http://localhost:4200/users')
-            .then((response)=>{
-                response.json().then(data => console.log(data));
-            })
-        }}>{props.text} </button>
+                .then((response) => {
+                    response.json().then(data => {
+                        console.log(data);
+                        data.map(element => {
+                            console.log(element);
+                            return <div>{element.name}</div>
+                        })
+
+                    });
+
+                })
+        }}> { props.text} </button >
     )
 }
 

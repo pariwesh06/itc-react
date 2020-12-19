@@ -1,6 +1,9 @@
 {
     "users":[{
         "name":"Pariwesh",
-        "age"
+        "age":30
+    },{
+        "name":"Ram",
+        "age":20
     }]
 }
