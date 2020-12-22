@@ -69,9 +69,33 @@ export class Userform extends Component {//ECMA6 class
                 </select>
                 <button type='button' onClick={this.save}>Save</button>
                 <ol>
-                    {this.state.users.map((user, index) => <li key={index} >{user.fname}</li>)}
+                    {this.state.users.map((user, index) => <li key={index} >{user.fname}
+                        <button type='button' onClick={this.deleteUser.bind(this, user, index)}>Delete</button></li>)}
                 </ol>
             </form>
         )
     }
+    deleteUser = (user, index) => {
+        console.log(this);
+
+        ApiService.deleteUser(user.id, (response) => {
+            console.log(response);
+            this.state.users.splice(index, 1);
+            this.setState({
+                users: this.state.users
+            });
+        },
+            (response) => {
+                alert('Delete failed...Try again');
+            });
+    };
+//without arrow function
+    // var formObject = this;
+    // ApiService.deleteUser(user.id, function(response) {
+    //     console.log(response);
+    //     formObject.state.users.splice(index, 1);
+    //     formObject.setState({
+    //         users:formObject.state.users
+    //     });
+    // });
 }
