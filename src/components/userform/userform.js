@@ -1,6 +1,6 @@
 import { Component, useState } from "react";
 import ApiService from "../../service/service";
-
+import './userform.css';
 
 // function, arrow function
 export class Userform extends Component {//ECMA6 class
@@ -9,7 +9,8 @@ export class Userform extends Component {//ECMA6 class
     constructor() {
         super();
         this.state = {
-            users: [], formdata: {
+            users: [],
+            formdata: {
                 fname: 'Ramesh1',
                 carBrand: 'audi',
                 isChecked: {},
@@ -37,8 +38,13 @@ export class Userform extends Component {//ECMA6 class
             console.log(response);
             this.setState({
                 users: [...this.state.users, response]
-            })
+            });
         }));;
+    }
+    componentWillMount() {
+        ApiService.getAllUsers(response => this.setState({
+            users: response
+        }));
     }
     render() {
         return (
@@ -68,10 +74,25 @@ export class Userform extends Component {//ECMA6 class
                     {this.skills.map((skill, index) => <option key={index} value={skill}>{skill}</option>)}
                 </select>
                 <button type='button' onClick={this.save}>Save</button>
-                <ol>
-                    {this.state.users.map((user, index) => <li key={index} >{user.fname}
-                        <button type='button' onClick={this.deleteUser.bind(this, user, index)}>Delete</button></li>)}
-                </ol>
+                <table>
+                    <thead>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Car</th>
+                        <th>Gender</th>
+                    </thead>
+                    <tbody>
+                        {this.state.users.map((user, index) => <tr key={index} >
+                            <td> {user.fname}</td>
+                            <td>{user.lastname}</td>
+                            <td>{user.carBrand}</td>
+                            <td>{user.gender}</td>
+                            <button type='button' onClick={this.deleteUser.bind(this, user, index)}>Delete</button></tr>)}
+
+                    </tbody>
+                    {/* {this.state.users.map((user, index) => <li key={index} >{user.fname}
+                        <button type='button' onClick={this.deleteUser.bind(this, user, index)}>Delete</button></li>)} */}
+                </table>
             </form>
         )
     }
@@ -89,7 +110,7 @@ export class Userform extends Component {//ECMA6 class
                 alert('Delete failed...Try again');
             });
     };
-//without arrow function
+    //without arrow function
     // var formObject = this;
     // ApiService.deleteUser(user.id, function(response) {
     //     console.log(response);
