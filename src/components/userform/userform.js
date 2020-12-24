@@ -46,6 +46,12 @@ export class Userform extends Component {//ECMA6 class
             users: response
         }));
     }
+    filter = (event) => {
+        ApiService.getUsers(event.target.value, response => this.setState({
+            users: response
+        }));
+        // this.handleChange();
+    }
     render() {
         return (
             <form>
@@ -76,7 +82,7 @@ export class Userform extends Component {//ECMA6 class
                 <button type='button' onClick={this.save}>Save</button>
                 <table>
                     <thead>
-                        <th>First Name</th>
+                        <th>First Name <input onChange={this.filter}></input></th>
                         <th>Last Name</th>
                         <th>Car</th>
                         <th>Gender</th>
@@ -88,10 +94,7 @@ export class Userform extends Component {//ECMA6 class
                             <td>{user.carBrand}</td>
                             <td>{user.gender}</td>
                             <button type='button' onClick={this.deleteUser.bind(this, user, index)}>Delete</button></tr>)}
-
                     </tbody>
-                    {/* {this.state.users.map((user, index) => <li key={index} >{user.fname}
-                        <button type='button' onClick={this.deleteUser.bind(this, user, index)}>Delete</button></li>)} */}
                 </table>
             </form>
         )
