@@ -1,5 +1,5 @@
 import { Component, useState } from "react";
-import ApiService from "../../service/service";
+import { ApiService, B } from "../../service/service";
 import './userform.css';
 
 // function, arrow function
@@ -17,6 +17,7 @@ export class Userform extends Component {//ECMA6 class
                 gender: 'male'
             }
         }
+        let b = new B();
     }
     createSelectItems = () => {
         let items = [];
@@ -41,17 +42,24 @@ export class Userform extends Component {//ECMA6 class
             });
         }));;
     }
-    componentWillMount() {
+    componentDidMount() {
+        this.getAllUsers();
+    }
+    filter = (event) => {
+        if (!event.target.value.trim()) {
+            this.getAllUsers();
+        } else {
+            ApiService.getUsers(event.target.value, response => this.setState({
+                users: response
+            }));
+        }
+    }
+    getAllUsers() {
         ApiService.getAllUsers(response => this.setState({
             users: response
         }));
     }
-    filter = (event) => {
-        ApiService.getUsers(event.target.value, response => this.setState({
-            users: response
-        }));
-        // this.handleChange();
-    }
+
     render() {
         return (
             <form>

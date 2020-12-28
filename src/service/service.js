@@ -1,6 +1,6 @@
 import jquery from "jquery";
 
-class ApiService {
+export class ApiService {
     static BASE_URL = 'http://localhost:4200/users/';
     static getAllUsers(successCallback) {
         jquery.get(ApiService.BASE_URL, successCallback);
@@ -19,4 +19,8 @@ class ApiService {
         });
     }
 }
-export default ApiService;
+
+export class B{
+
+}
+//   ApiService;
