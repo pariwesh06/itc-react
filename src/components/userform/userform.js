@@ -90,7 +90,7 @@ export class Userform extends Component {//ECMA6 class
                 <button type='button' onClick={this.save}>Save</button>
                 <table>
                     <thead>
-                        <th>First Name <input onChange={this.filter}></input></th>
+                        <th onClick={this.sortFirstName}>First Name <input onChange={this.filter}></input></th>
                         <th>Last Name</th>
                         <th>Car</th>
                         <th>Gender</th>
@@ -107,9 +107,18 @@ export class Userform extends Component {//ECMA6 class
             </form>
         )
     }
+    sortFirstName = ()=>{
+        this.state.users.sort((user1, user2) => {
+            return (user1.fname < user2.fname) ? -1 : (user1.fname > user2.fname) ? 1 : 0
+        });
+        this.setState({
+            users: this.state.users
+        })
+    }
     deleteUser = (user, index) => {
-        console.log(this);
-
+        const decision = window.confirm('Are you sure?');
+        if (!decision)
+            return;
         ApiService.deleteUser(user.id, (response) => {
             console.log(response);
             this.state.users.splice(index, 1);

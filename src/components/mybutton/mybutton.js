@@ -1,4 +1,3 @@
-import List from "../list/list";
 
 const MyButton = (props) => { //stateless
     return (
