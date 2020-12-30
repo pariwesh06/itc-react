@@ -10,6 +10,7 @@ export class Userform extends Component {//ECMA6 class
         super();
         this.state = {
             users: [],
+            editRow: -1,
             formdata: {
                 fname: 'Ramesh1',
                 carBrand: 'audi',
@@ -96,18 +97,44 @@ export class Userform extends Component {//ECMA6 class
                         <th>Gender</th>
                     </thead>
                     <tbody>
-                        {this.state.users.map((user, index) => <tr key={index} >
+                        {this.state.users.map((user, index) => (this.state.editRow !== index && <tr key={index} >
                             <td> {user.fname}</td>
                             <td>{user.lastname}</td>
                             <td>{user.carBrand}</td>
                             <td>{user.gender}</td>
-                            <button type='button' onClick={this.deleteUser.bind(this, user, index)}>Delete</button></tr>)}
+                            <td><button type='button' onClick={this.deleteUser.bind(this, user, index)}>Delete</button></td>
+                            <td><button type='button' onClick={this.activateUpdate.bind(this, index)}>Update</button></td>
+                        </tr>) || (
+                                this.state.editRow === index && <tr key={index} >
+                                    <td><input type='text' value={user.fname} onBlur={this.updateUser.bind(this, user, index)} onChange={this.updateUserLocal.bind(this, index)} ></input></td>
+                                    <td><input type='text'></input></td>
+
+                                    <td>{user.carBrand}</td>
+                                    <td>{user.gender}</td>
+                                    <td><button type='button' onClick={this.deleteUser.bind(this, user, index)}>Delete</button></td>
+                                    <td><button type='button' onClick={this.activateUpdate.bind(this, index)}>Update</button></td>
+                                </tr>))}
                     </tbody>
                 </table>
             </form>
         )
     }
-    sortFirstName = ()=>{
+    updateUserLocal = (index, event) => {
+        console.log(event, index);
+        this.state.users[index].fname = event.target.value;
+        this.setState({
+            users: [...this.state.users]
+        })
+    }
+    updateUser = (user) => {
+        ApiService.updateUser(user);
+    }
+    activateUpdate = (selectedRow) => {
+        this.setState({
+            editRow: selectedRow
+        })
+    }
+    sortFirstName = () => {
         this.state.users.sort((user1, user2) => {
             return (user1.fname < user2.fname) ? -1 : (user1.fname > user2.fname) ? 1 : 0
         });
