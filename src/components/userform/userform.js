@@ -106,8 +106,8 @@ export class Userform extends Component {//ECMA6 class
                             <td><button type='button' onClick={this.activateUpdate.bind(this, index)}>Update</button></td>
                         </tr>) || (
                                 this.state.editRow === index && <tr key={index} >
-                                    <td><input type='text' value={user.fname} onBlur={this.updateUser.bind(this, user, index)} onChange={this.updateUserLocal.bind(this, index)} ></input></td>
-                                    <td><input type='text'></input></td>
+                                    <td><input type='text' value={user.fname} name='fname' onBlur={this.updateUser.bind(this, user, index)} onChange={this.updateUserLocal.bind(this, index)} ></input></td>
+                                    <td><input type='text' value={user.lastname} name='lastname' onBlur={this.updateUser.bind(this, user, index)} onChange={this.updateUserLocal.bind(this, index)} ></input></td>
 
                                     <td>{user.carBrand}</td>
                                     <td>{user.gender}</td>
@@ -120,8 +120,7 @@ export class Userform extends Component {//ECMA6 class
         )
     }
     updateUserLocal = (index, event) => {
-        console.log(event, index);
-        this.state.users[index].fname = event.target.value;
+        this.state.users[index][event.target.name]= event.target.value;
         this.setState({
             users: [...this.state.users]
         })
