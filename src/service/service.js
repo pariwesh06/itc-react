@@ -26,6 +26,9 @@ export class ApiService {
             error: errorCallback
         });
     }
+    static getSkills(success){
+        jquery.get('http://localhost:4200/skills', success);
+    }
 }
 
 export class B {

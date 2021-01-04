@@ -1,8 +1,13 @@
+import { Counter } from './components/counter/counter';
 import { Userform } from './components/userform/userform';
 
-function App() {  //Component
+function App() {  //Container Component
+  console.log(this);
   return (   //JSX expression
-    <Userform ></Userform>
+    <div>
+      <Userform></Userform>
+      <Counter count='10'></Counter>
+    </div>
   );
 }
 

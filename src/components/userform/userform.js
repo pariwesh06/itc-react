@@ -1,10 +1,10 @@
 import { Component, useState } from "react";
 import { ApiService, B } from "../../service/service";
 import './userform.css';
-
+import { Counter } from "../counter/counter";
 // function, arrow function
 export class Userform extends Component {//ECMA6 class
-    skills = ["java", 'javascript', 'React'];
+    skills = [];
 
     constructor() {
         super();
@@ -45,6 +45,15 @@ export class Userform extends Component {//ECMA6 class
     }
     componentDidMount() {
         this.getAllUsers();
+    }
+    componentWillMount(){
+        this.populateSkills();
+    }
+    populateSkills(){
+        ApiService.getSkills((response)=>{
+            console.log(response);
+            this.skills = response;
+        });
     }
     filter = (event) => {
         if (!event.target.value.trim()) {
@@ -88,7 +97,7 @@ export class Userform extends Component {//ECMA6 class
                 <select name='skills' value={this.state.formdata.skills} onChange={this.handleChange}>
                     {this.skills.map((skill, index) => <option key={index} value={skill}>{skill}</option>)}
                 </select>
-                <button type='button' onClick={this.save}>Save</button>
+                <button type='button' onClick={this.save}>Save</button><Counter count={this.state.users.length}></Counter>
                 <table>
                     <thead>
                         <th onClick={this.sortFirstName}>First Name <input onChange={this.filter}></input></th>
