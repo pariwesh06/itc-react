@@ -3,7 +3,7 @@ import { ApiService, B } from "../../service/service";
 import './userform.css';
 import { Counter } from "../counter/counter";
 // function, arrow function
-export class Userform extends Component {//ECMA6 class
+export default class Userform extends Component {//ECMA6 class
     skills = [];
 
     constructor() {
